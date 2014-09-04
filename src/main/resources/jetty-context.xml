@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+ <Call name="setAttribute">
+  <Arg>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</Arg>
+  <Arg>^$</Arg>
+ </Call>
+ 
+ <!-- 
+<Call name="setContextAttribute">
+  <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
+  <Arg>.*/scala/.*|.*/classes/dmk/web/conf/.*</Arg>
+</Call>
+  -->
+ 
+</Configure>
