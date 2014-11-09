@@ -18,6 +18,47 @@ import javax.ws.rs.core.MediaType
 
 @Path("/nc/login/status")
 class LoginStatusResource{
+
+  @Path("/user/{name}/hello")
+  @GET
+  @Produces(Array(MediaType.APPLICATION_JSON))
+  def sayHello(@PathParam("name") name: String): String = {
+    return "hello " + name
+  }
+  
+  @Path("/user/{name}")
+  @GET
+  @Produces(Array(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON))
+  def checkLoginStatus(@PathParam("name") name: String): String = {
+    if(name.length() > 40){
+      throw new IllegalArgumentException("name too long")
+    }
+    
+    val safeName = name.trim()  
+    val homePage = LoginStatusResource.portalLoginService.loginHomePage()
+    val namesToCheck = Array(name)
+    val notLoggedIn = LoginStatusResource.portalLoginService.checkUsersStatus(homePage, namesToCheck)
+//    val notLoggedIn = namesToCheck.intersect(users)
+    val loggedIn = namesToCheck.diff(notLoggedIn)
+    namesToCheck.map(println _)
+    loggedIn.map(println _)
+
+    val msg = 
+ <Response>
+		{ loggedIn.map(n => <status>{n} might be logged in today</status>) }
+		{ notLoggedIn.map(n => <status>{n} is not logged in today</status>) }
+</Response>
+				return msg.toString()
+  }
+  
+//  @Path("/user/{name}/update")
+//  @POST
+//  @Produces(Array(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON))
+//  def updateLoginStatus(@PathParam("name") name: String): String = {
+//  }
+}
+
+object LoginStatusResource{
   val logger: Logger = LoggerFactory.getLogger(classOf[LoginStatusResource])
 
   lazy val portalLoginService = initPortalLoginService()
@@ -46,7 +87,6 @@ class LoginStatusResource{
       
     }
     props.load(inputStream)
-
     
     val portalUser = props.getProperty("dmk.service.portal.login.portalUser")
     var portalPass = props.getProperty("dmk.service.portal.login.portalPass")
@@ -59,32 +99,4 @@ class LoginStatusResource{
     service.setPass(portalPass)
     service
   }
-  
-  
-  @Path("/user/{name}")
-  @GET
-  @Produces(Array(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON))
-  def checkLoginStatus(@PathParam("name") name: String): String = {
-    if(name.length() > 40){
-      throw new IllegalArgumentException("name too long")
-    }
-    
-    val safeName = name.trim()  
-    val homePage = portalLoginService.loginHomePage()
-    val names = Array(name)
-    val users = portalLoginService.checkUsersStatus(homePage, names)
-    val loggedIn = names.union(users)
-    val notLoggedIn = names.diff(users)
-    val msg = <Response>
-				{ loggedIn.map(n => <status>{n} is logged in today</status>) }
-				{ notLoggedIn.map(n => <status>{n} is not logged in today</status>) }
-</Response>
-				return msg.toString()
-  }
-  
-//  @Path("/user/{name}/update")
-//  @POST
-//  @Produces(Array(MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON))
-//  def updateLoginStatus(@PathParam("name") name: String): String = {
-//  }
 }

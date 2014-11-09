@@ -8,8 +8,6 @@
 	<packaging>war</packaging>
 
 	<name>dmk-login-ws</name>
-	<url>http://maven.apache.org</url>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>9.2.2.v20140723</jetty.version>
@@ -59,7 +57,12 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-
+		<dependency>
+		  <groupId>org.apache.flume</groupId>
+		  <artifactId>flume-ng-sdk</artifactId>
+		  <version>1.5.0.1</version>
+		</dependency>
+    <!-- for DDos servlet fileter -->
 		<dependency>
 		  <groupId>org.eclipse.jetty</groupId>
 		  <artifactId>jetty-servlets</artifactId>

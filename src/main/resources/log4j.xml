@@ -22,7 +22,7 @@
   </category>
   
   <root>
-     <level value="d"/>
+     <level value="debug"/>
      <appender-ref ref="consoleAppender"/>
   </root>
 
