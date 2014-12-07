@@ -23,6 +23,7 @@ class LoginStatusResource{
   @GET
   @Produces(Array(MediaType.APPLICATION_JSON))
   def sayHello(@PathParam("name") name: String): String = {
+    Thread.sleep(1000L)
     return "hello " + name
   }
   

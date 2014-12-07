@@ -46,7 +46,6 @@ class FlumeLoggerFilter extends Filter {
   }
 
   def doFilter(req: ServletRequest, res: ServletResponse, chain: FilterChain): Unit = {
-    // TODO: this servlet wrapper doesnt seem to work
     logger.debug("-- FlumeLoggerFilter inspecting request params:")
 
     val localIp = req.getLocalAddr()

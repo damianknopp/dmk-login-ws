@@ -20,7 +20,9 @@ class WebAppInit extends ServletContainerInitializer{
     }
     
     val fReg: FilterRegistration.Dynamic = ctx.addFilter("DoSFilter", classOf[org.eclipse.jetty.servlets.DoSFilter])
-    fReg.setInitParameter("maxRequestsPerSec", "10")
+    fReg.setInitParameter("maxRequestsPerSec", "3")
+    fReg.setInitParameter("delayMs", "2000")
+    fReg.addMappingForUrlPatterns(null, true, "/*")
 
   }
   
