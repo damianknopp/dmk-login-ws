@@ -51,10 +51,11 @@ class LoginStatusResource {
     logger.debug(userNames)
     val userArray = userNames.split(",")
     val users = userArray.map{ (user: String) =>
-      if (user.length() > 40) {
+      val safeUser = user.trim()
+      if (safeUser.length() > 40) {
       	throw new IllegalArgumentException("name too long")
       }
-      user.trim()
+      safeUser
     }
     return this.checkLogin(users)
   }
