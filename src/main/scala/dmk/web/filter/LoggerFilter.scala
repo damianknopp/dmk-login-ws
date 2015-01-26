@@ -19,12 +19,11 @@ class LoggerFilter extends Filter {
   }
 
   def doFilter(req: ServletRequest, res: ServletResponse, chain: FilterChain): Unit = {
-    // TODO: this servlet wrapper doesnt seem to work
-    logger.debug("-- LoggerFilter inspecting request params:")
+    logger.trace("-- LoggerFilter inspecting request params:")
     val paramNames = req.getParameterNames()
     while(paramNames.hasMoreElements()){
       val ele = paramNames.nextElement()
-      logger.debug(ele)
+      logger.trace(ele)
     }
     chain.doFilter(req, res)
   }

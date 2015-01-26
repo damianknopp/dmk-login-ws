@@ -61,6 +61,9 @@ class FlumeLoggerFilter extends Filter {
     sb.append(srcIp).append(delim).append(srcPort).append(delim)
     sb.append(protocol).append(delim).append(url)
     
+    if(logger.isTraceEnabled()){
+    	logger.trace(sb.toString())
+    }
     sendFlumeEvent(sb.toString())
     
     chain.doFilter(req, res)

@@ -12,7 +12,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>9.2.2.v20140723</jetty.version>
 		<jersey.version>2.8</jersey.version>
-		<slf4j.version>1.7.5</slf4j.version>
+		<slf4j.version>1.7.10</slf4j.version>
+		<logback.version>1.1.2</logback.version>
+		<flume.version>1.5.0.1</flume.version>
 		<scala.version>2.11.2</scala.version>
 	</properties>
 
@@ -47,20 +49,52 @@
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
+		<!-- 
+		<dependency>
+		  <groupId>com.fasterxml.jackson.jaxrs</groupId>
+		  <artifactId>jackson-jaxrs-json-provider</artifactId>
+		  <version>2.4.0</version>
+		</dependency>
+		 -->
+  <!-- 
+		 <dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+		</dependency>
+   -->
+		 <!-- jersey uses jul so, bridge to slf4j -->
+		 <dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>jul-to-slf4j</artifactId>
+		  <version>${slf4j.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>jcl-over-slf4j</artifactId>
+	    <version>${slf4j.version}</version>
+    </dependency>
+		<dependency>
+		  <groupId>ch.qos.logback</groupId>
+		  <artifactId>logback-classic</artifactId>
+		  <version>${logback.version}</version>
+    </dependency>
+    <!-- 
+    <dependency>
+		  <groupId>ch.qos.logback</groupId>
+		  <artifactId>logback-core</artifactId>
+		  <version>${logback.version}</version>
 		</dependency>
+     -->
 		<dependency>
 		  <groupId>org.apache.flume</groupId>
 		  <artifactId>flume-ng-sdk</artifactId>
-		  <version>1.5.0.1</version>
+		  <version>${flume.version}</version>
 		</dependency>
     <!-- for DDos servlet fileter -->
 		<dependency>
@@ -78,7 +112,13 @@
     <dependency>
 		  <groupId>dmk</groupId>
 		  <artifactId>deus-ex-machina</artifactId>
-		  <version>1.0.3</version>
+		  <version>1.0.4</version>
+			<exclusions>
+	        <exclusion>
+	            <artifactId>commons-logging</artifactId>
+	            <groupId>commons-logging</groupId>
+	        </exclusion>
+	    </exclusions>
     </dependency>
   
 		<dependency>

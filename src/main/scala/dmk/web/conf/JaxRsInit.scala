@@ -12,7 +12,7 @@ class JaxRsInit extends ResourceConfig{
 	val logger = LoggerFactory.getLogger(classOf[JaxRsInit])
 	logger.debug("new @ApplicationPath")
 
-	packages("dmk.web.rest;dmk.web.conf")
+	val providerPackages = "dmk.web.rest;dmk.web.rest.model"
+	packages(providerPackages)
 	register(classOf[JacksonFeature])
-	register(classOf[JacksonMessageProvider])
 }

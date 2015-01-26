@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%-5level %msg [%logger{16} %d{HH:mm:ss}]%n</pattern>
+    </layout>
+    <target>System.out</target>
+  </appender>
+
+  <root>
+    <appender-ref ref="stdout" />
+  </root>
+
+  <logger name="org.springframework" level="debug" />
+  <logger name="org.apache.commons.httpclient" level="trace" />
+  <logger name="org.apache.http" level="trace" />
+  <logger name="httpclient.wire" level="trace" />
+  <logger name="dmk" level="debug" />
+
+</configuration>

@@ -23,7 +23,6 @@ class WebAppInit extends ServletContainerInitializer{
     fReg.setInitParameter("maxRequestsPerSec", "3")
     fReg.setInitParameter("delayMs", "2000")
     fReg.addMappingForUrlPatterns(null, true, "/*")
-
   }
   
 }
